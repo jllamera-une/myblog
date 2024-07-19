@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Post;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
@@ -11,7 +12,8 @@ class PostController extends Controller
      */
     public function index()
     {
-        return view('index');
+        $posts = Post::all();
+        return view('Posts.index', compact('posts'));
     }
 
     /**
@@ -19,7 +21,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        //
+        return view('Posts.create');
     }
 
     /**
@@ -33,9 +35,9 @@ class PostController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show()
     {
-        //
+        return view('Posts.show');
     }
 
     /**
