@@ -12,8 +12,11 @@ class PostController extends Controller
      */
     public function index()
     {
+        // create a variable and store all the blog posts in it from the database
         $posts = Post::all();
-        return view('Posts.index', compact('posts'));
+
+        //return a view ans pass in the above variable
+        return view('posts.index', compact('posts'));
     }
 
     /**
@@ -21,7 +24,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        return view('Posts.create');
+        return view('posts.create');
     }
 
     /**
@@ -29,15 +32,32 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // validate data
+        $request->validate([
+            'title' => 'required',
+            'content' => 'required',
+        ]);
+
+        // store in the database
+        $post = new Post;
+
+        $post->title = $request->title;
+        $post->content = $request->content;
+
+        $post->save();
+        // Post::create($request->all());
+
+        // redirect to another page
+        return redirect()->route('posts.show', $post->id);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show()
+    public function show(string $id)
     {
-        return view('Posts.show');
+        $post = Post::find($id);
+        return view('posts.show', compact('post'));
     }
 
     /**
@@ -45,7 +65,9 @@ class PostController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        // find the post in the database and save as a var
+        $post = Post::find($id);
+        return view('posts.edit', compact('post'));
     }
 
     /**
@@ -53,7 +75,21 @@ class PostController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        // validate the data
+        $data = $request->validate([
+            'title' => 'required',
+            'content' => 'required',
+        ]);
+
+        // save the data to the database
+        $post = Post::find($id);
+        $post->title = $request->input('title');
+        $post->content = $request->input('content');
+        $post->update($data);
+
+        // redirect with flash data to posts.show
+        return redirect()->route('posts.show', $post->id)->with('Success', 'Post Updated Successfully!');
+
     }
 
     /**
@@ -61,6 +97,10 @@ class PostController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $post = Post::find($id);
+
+        $post->delete();
+
+        return redirect()->route('posts.index')->with('Success', 'Product deleted successfully');
     }
 }
