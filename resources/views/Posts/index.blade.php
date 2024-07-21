@@ -35,7 +35,7 @@
                         <td>{{ substr($post->content, 0, 50) }}{{ strlen($post->content) > 50 ? "..." : "" }}</td>
                         <td>{{ date('j M Y', strtotime($post->created_at)) }}</td>
                         <td>
-                            <a href="{{ route('posts.show', $post->id) }}" class="btn btn-primary btn-sm">View</a>
+                            <a href="{{ route('posts.show', $post->id) }}" class="btn btn-default btn-sm">View</a>
                             <form action="{{ route('posts.destroy', [$post->id]) }}" method="post">
                                 @csrf
                                 @method('delete')
