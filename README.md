@@ -7,60 +7,57 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
-## About Laravel
+Git URL: https://github.com/jllamera-une/myblog
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Introduction
+This report outlines the approach taken to create a CRUD (Create, Read, Update, Delete) Laravel blog and discusses the challenges faced during the process. Laravel, a popular PHP framework, was chosen for its elegant syntax, robust features, and ease of use for building web applications.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Approach
+### Setup and Configuration
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+Environment Setup: Installed Laravel using Composer, set up a local development environment using tools like XAMPP.
+Database Configuration: Configured the .env file with database connection details and created a MySQL database for the blog.
 
-## Learning Laravel
+### Creating the Blog Model and Migration
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+Model Creation: Created a Post model using the Artisan command php artisan make:model Post -m.
+Migration Setup: Defined the schema for the posts table in the migration file (e.g., title, body, timestamps) and ran php artisan migrate to create the table in the database.
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+### Building the Controllers and Routes
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+Controller Creation: Generated a resource controller using php artisan make:controller PostController --resource.
+Route Definitions: Defined routes in the web.php file using Route::resource('posts', PostController::class).
 
-## Laravel Sponsors
+### Developing the Views
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+Blade Templates: Created Blade templates for listing posts, showing a single post, creating a new post, editing a post, and deleting a post. Views were stored in the resources/views/posts directory.
+Bootstrap Integration: Integrated Bootstrap for a responsive and user-friendly UI.
 
-### Premium Partners
+### Implementing CRUD Operations
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+Create: Developed a form for creating new posts and handled the form submission in the store method of the PostController.
+Read: Implemented logic in the index method to list all posts and in the show method to display a single post.
+Update: Created an edit form and handled updates in the update method.
+Delete: Added functionality to delete posts using the destroy method.
 
-## Contributing
+### Validation and Error Handling
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Form Validation: Used Laravel’s built-in validation to ensure data integrity when creating and updating posts.
 
-## Code of Conduct
+## Challenges Faced
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+Environment Configuration: Had a hard time setting up the local development environment and configuring the database correctly since the local development environment in the lecture was different from what I' m using.
 
-## Security Vulnerabilities
+Unfamiliar development evironment: First time handling Laravel and needs to have a understanding of MVC and Eloduent ORM.
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+## Bonus
 
-## License
+I've added a login authentication for the security and functionality of the blog.  These features were not part of the initial requirements, but they added substantial value to the project. Additionally, the improved layout of the index page enhanced the user experience, making the blog more visually appealing and easier to use.
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+By going the extra mile with these features beyond the basic CRUD operations, I showed initiative and a commitment to delivering a project with expected output. This extra effort and attention to detail are why I think I deserve the bonus point.
+
+
+
+
+
+
