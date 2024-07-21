@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
 {
@@ -14,7 +15,8 @@ class PostController extends Controller
     {
         // create a variable and store all the blog posts in it from the database
         $posts = Post::all();
-
+        //$posts = Auth::user()->posts;
+        //dd($posts);
         //return a view ans pass in the above variable
         return view('posts.index', compact('posts'));
     }
@@ -45,7 +47,7 @@ class PostController extends Controller
         $post->content = $request->content;
 
         $post->save();
-        // Post::create($request->all());
+        //Post::create($request->all());
 
         // redirect to another page
         return redirect()->route('posts.show', $post->id);
