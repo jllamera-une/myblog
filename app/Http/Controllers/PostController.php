@@ -14,8 +14,8 @@ class PostController extends Controller
     public function index()
     {
         // create a variable and store all the blog posts in it from the database
-        $posts = Post::all();
-        //$posts = Auth::user()->posts;
+        //$posts = Post::all();
+        $posts = Auth::user()->posts;
         //dd($posts);
         //return a view ans pass in the above variable
         return view('posts.index', compact('posts'));
@@ -56,9 +56,13 @@ class PostController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Request $request, Post $post)
     {
-        $post = Post::find($id);
+        if(Auth::id() != $post -> user_id) {
+            abort(403);
+        }   
+        
+        //$post = Post::find($id);
         return view('posts.show', compact('post'));
     }
 
