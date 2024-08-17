@@ -14,20 +14,13 @@ class AdminMiddleware
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle(Request $request, Closure $next): Response
+    public function handle(Request $request, Closure $next)
     {
         // Check if the user is authenticated
-        if (Auth::check()) {
-            // Check if the authenticated user is an admin
-            if (Auth::user()->role === 'admin') {
-                return $next($request);
-            } else {
-                // If not an admin, redirect to home page or show unauthorized message
-                return redirect('/')->with('error', 'Unauthorized access.');
-            }
+        if (Auth::user() &&  Auth::user()->is_admin == 1) {
+            return redirect()->route('home')->withErrors(__('auth.not_authorized'));
         }
 
-        // If not authenticated, redirect to login
-        return redirect('login');
+        return $next($request);
     }
 }

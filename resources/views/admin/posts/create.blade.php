@@ -1,4 +1,4 @@
- @extends('layouts.admin')
+ @extends('admin.layouts.admin')
 
  @section('content')
     <h1>Create a Blog Post</h1>

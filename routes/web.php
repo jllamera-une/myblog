@@ -10,24 +10,20 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::group(['middleware' => ['auth']], function() {
+Route::group(['middleware' => ['auth', 'admin']], function() {
     Route::resource('posts', PostController::class);
-    Route::resource('users', UserController::class);
+    //Route::resource('users', UserController::class);
     Route::get('/home', [PostController::class, 'index'])->name('home');
+
+    Route::get('/dashboard', function () {
+        return view('admin.dashboard');
+    })->name('admin.dashboard');
+
+    // User management routes
+    Route::resource('users', UserController::class);
+
+    // Blog post management routes
+    Route::resource('posts', AdminPostController::class);
 });
-
-// Route::middleware(['admin'])->prefix('admin')->group(function () {
-//     // Admin dashboard route
-//     Route::get('/dashboard', function () {
-//         return view('admin.dashboard');
-//     })->name('admin.dashboard');
-
-//     // User management routes
-//     Route::resource('users', UserController::class);
-
-//     // Blog post management routes
-//     Route::resource('posts', AdminPostController::class);
-// });
-
 
 Auth::routes();

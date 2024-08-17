@@ -147,7 +147,7 @@
 
 <div class="container-fluid">
   <div class="row">
-    @include('layouts.includes.navbar')
+    @include('admin.layouts.includes.navbar')
 
     <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
       @yield('content')
