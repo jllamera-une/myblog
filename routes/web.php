@@ -3,6 +3,8 @@
 use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\PostController as AdminPostController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -13,8 +15,18 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('/home', [PostController::class, 'index'])->name('home');
 });
 
-Auth::routes();
+Route::middleware(['admin'])->prefix('admin')->group(function () {
+    // Admin dashboard route
+    Route::get('/dashboard', function () {
+        return view('admin.dashboard');
+    })->name('admin.dashboard');
+
+    // User management routes
+    Route::resource('users', UserController::class);
+
+    // Blog post management routes
+    Route::resource('posts', AdminPostController::class);
+});
+
 
 Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
