@@ -7,55 +7,36 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
-Git URL: https://github.com/jllamera-une/myblog
+Git URL: https://github.com/jllamera-une/myblog/tree/feature/auth-admin-panel
 
 ## Introduction
-This report outlines the approach taken to create a CRUD (Create, Read, Update, Delete) Laravel blog and discusses the challenges faced during the process. Laravel, a popular PHP framework, was chosen for its elegant syntax, robust features, and ease of use for building web applications.
+This report outlines the approach taken to enhance basic blog application by adding user authentication and discusses the challenges faced during the process. 
 
-## Approach
-### Setup and Configuration
+## 1. Setup and Initialize Project
+- **Environment Setup**: Ensure your development environment is set up with the basic blog application from Assessment 1.
 
-Environment Setup: Installed Laravel using Composer, set up a local development environment using tools like XAMPP.
-Database Configuration: Configured the .env file with database connection details and created a MySQL database for the blog.
+Setting up your development environment on your local machine:
+```bash
+$ git clone https://github.com/jllamera-une/myblog.git
+$ cd my-blog
+$ cp .env.example .env
+$ php artisan migrate --seed
+$ npm install
+$ npm run dev
+$ php artisan serve
+$ Now open http://localhost:8000/admin
 
-### Creating the Blog Model and Migration
-
-Model Creation: Created a Post model using the Artisan command php artisan make:model Post -m.
-Migration Setup: Defined the schema for the posts table in the migration file (e.g., title, body, timestamps) and ran php artisan migrate to create the table in the database.
-
-### Building the Controllers and Routes
-
-Controller Creation: Generated a resource controller using php artisan make:controller PostController --resource.
-Route Definitions: Defined routes in the web.php file using Route::resource('posts', PostController::class).
-
-### Developing the Views
-
-Blade Templates: Created Blade templates for listing posts, showing a single post, creating a new post, editing a post, and deleting a post. Views were stored in the resources/views/posts directory.
-Bootstrap Integration: Integrated Bootstrap for a responsive and user-friendly UI.
-
-### Implementing CRUD Operations
-
-Create: Developed a form for creating new posts and handled the form submission in the store method of the PostController.
-Read: Implemented logic in the index method to list all posts and in the show method to display a single post.
-Update: Created an edit form and handled updates in the update method.
-Delete: Added functionality to delete posts using the destroy method.
-
-### Validation and Error Handling
-
-Form Validation: Used Laravel’s built-in validation to ensure data integrity when creating and updating posts.
+Admin login:
+- Email: testing@mail.com
+- Password: password
 
 ## Challenges Faced
 
-Environment Configuration: Had a hard time setting up the local development environment and configuring the database correctly since the local development environment in the lecture was different from what I' m using.
+1. **Time management and Scope Creep**: Keeping the project within scope and delivered on time can be difficult, especially if new requirements or unforeseen challenges arise.
 
-Unfamiliar development evironment: First time handling Laravel and needs to have a understanding of MVC and Eloduent ORM.
+2. **Route Structuring**: Getting routes set up properly in Laravel isn't always straightforward. When you're dealing with route groups, prefixes, and middleware, it takes some careful planning to make sure all the admin routes are locked down and separate from the public ones.
 
-## Bonus
-
-I've added a login authentication for the security and functionality of the blog.  These features were not part of the initial requirements, but they added substantial value to the project. Additionally, the improved layout of the index page enhanced the user experience, making the blog more visually appealing and easier to use.
-
-By going the extra mile with these features beyond the basic CRUD operations, I showed initiative and a commitment to delivering a project with expected output. This extra effort and attention to detail are why I think I deserve the bonus point.
-
+3. **Admin Interface Design**: Making the admin interface both user-friendly and in line with the rest of the app can be a bit of a time sink. Using Bootstrap to create layouts that are both responsive and functional also requires some extra attention to detail.
 
 
 
