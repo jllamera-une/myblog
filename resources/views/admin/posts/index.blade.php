@@ -14,7 +14,6 @@
         <div class="col-md-12">
             <table class="table">
                 <thead>
-                    <th>#</th>
                     <th>Title</th>
                     <th>Content</th>
                     <th>Created At</th>
@@ -26,7 +25,6 @@
                     @foreach ($posts as $post)
 
                     <tr>
-                        <th>{{ $post->id }}</th>
                         <td>{{ $post->title }}</td>
                         <td>{{ substr($post->content, 0, 50) }}{{ strlen($post->content) > 50 ? "..." : "" }}</td>
                         <td>{{ date('j M Y', strtotime($post->created_at)) }}</td>

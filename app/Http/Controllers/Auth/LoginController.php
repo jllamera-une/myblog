@@ -37,4 +37,21 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
         $this->middleware('auth')->only('logout');
     }
+
+    /**
+     * Handle the post-authentication redirection based on user role.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Contracts\Auth\Authenticatable  $user
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    protected function authenticated($request, $user)
+    {
+        // Check the user's role and redirect accordingly
+        if ($user->role === 'admin') {
+            return redirect()->route('posts.index'); 
+        }
+
+        return redirect()->intended($this->redirectPath());
+    }
 }

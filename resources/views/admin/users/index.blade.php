@@ -5,7 +5,7 @@
         <h1 class="h2">All Users</h1>
         <div class="btn-toolbar mb-2 mb-md-0">
           <div class="btn-group me-2">
-            <a href="{{ route('posts.create') }}" class="btn btn-sm btn-outline-secondary">Create New Post</a>
+            <a href="{{ route('users.create') }}" class="btn btn-sm btn-outline-secondary">Create New User</a>
           </div>
         </div>
     </div>
@@ -16,6 +16,7 @@
                 <thead>
                     <th>Name</th>
                     <th>Email</th>
+                    <th>Role</th>
                     <th>Actions</th>
                     <th></th>
                 </thead>
@@ -27,10 +28,11 @@
                     <tr>
                         <td>{{ $user->name }}</td>
                         <td>{{ $user->email }}</td>
+                        <td>{{ $user->role }}</td>
 
                         <td>
-                            <a href="{{ route('posts.show', $user->id) }}" class="btn btn-default btn-sm">View</a>
-                            <form action="{{ route('posts.destroy', [$user->id]) }}" method="post">
+                            <a href="{{ route('users.edit', $user->id) }}" class="btn btn-default btn-sm">Edit</a>
+                            <form action="{{ route('users.destroy', [$user->id]) }}" method="post">
                                 @csrf
                                 @method('delete')
                                 <input type="submit" value="Delete" class="btn btn-danger btn-sm"/>

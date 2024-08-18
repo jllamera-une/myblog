@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Models\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\View\View;
 
 
@@ -33,20 +34,48 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, User $user): RedirectResponse
+    public function update(Request $request, string $id)
     {
+        // Validate the data including role
+        $data = $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|max:255',
+            'password' => 'nullable|string|min:8|confirmed',
+            'role' => 'required|string|in:admin,author,user', 
+        ]);
+
+        // Find the user by ID
+        $user = User::findOrFail($id);
+
+        // Update user details
+        $user->name = $request->input('name');
+        $user->email = $request->input('email');
+
+        // Update password if provided
         if ($request->filled('password')) {
-            $request->merge([
-                'password' => Hash::make($request->input('password'))
-            ]);
+            $user->password = Hash::make($request->input('password'));
         }
 
-        $user->update(array_filter($request->only(['name', 'email', 'password'])));
+        // Update the user's role
+        $user->role = $request->input('role');
 
-        $role_ids = array_values($request->get('roles', []));
-        $user->roles()->sync($role_ids);
+        // Save the updated user
+        $user->update($data);
 
-        return redirect()->route('admin.users.edit', $user)->withSuccess(__('users.updated'));
+        // Redirect with flash data to users.show
+        return redirect()->route('admin.users.index', $user->id)->with('success', 'User updated successfully!');
+    }
+
+    public function destroy($id)
+    {
+        $user = User::findOrFail($id);
+        $user->delete();
+        return redirect()->route('users.index')->with('success', 'User deleted successfully.');
+    }
+
+    public function create()
+    {
+        return view('admin.users.create');
     }
     // public function index()
     // {
@@ -54,10 +83,7 @@ class UserController extends Controller
     //     return view('admin.users.index', compact('users'));
     // }
 
-    // public function create()
-    // {
-    //     return view('admin.users.create');
-    // }
+    
 
     // public function store(Request $request)
     // {

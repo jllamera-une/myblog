@@ -61,6 +61,17 @@
                             </div>
                         </div>
 
+                        <div class="row mb-3">
+                            <label for="role" class="col-md-4 col-form-label text-md-end">Role</label>
+
+                            <select class="form-select col-md-4" id="role" name="role">
+                                <option value="user">User</option>
+                                <option value="author">Author</option>
+                                <option value="admin">Admin</option>
+                        
+                            </select>
+                        </div>
+
                         <div class="row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary">
