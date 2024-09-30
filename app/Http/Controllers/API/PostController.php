@@ -16,13 +16,4 @@ class PostController extends Controller
             'message' => 'success'
         ], 200);
     }
-    public function show($id)
-    {
-        $post = Post::findOrFail($id);
-
-        return response()->json([
-            'data' => $post,
-            'message' => 'success'
-        ], 200);
-    }
 }
