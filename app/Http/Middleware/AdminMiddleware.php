@@ -17,7 +17,7 @@ class AdminMiddleware
     public function handle(Request $request, Closure $next)
     {
         // Check if the user is authenticated
-        if (Auth::user() &&  Auth::user()->is_admin == 1) {
+        if (Auth::user() &&  Auth::user() == 'admin') {
             return redirect()->route('home')->withErrors(__('auth.not_authorized'));
         }
 
